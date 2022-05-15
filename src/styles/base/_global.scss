@@ -1,3 +1,92 @@
+.preloader {
+	z-index: 9999;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	min-height: 100vh;
+	background-color: $color-background;
+	opacity: 1;
+	visibility: visible;
+	transition: $transition-normal;
+	&_hide {
+		opacity: 0;
+		visibility: hidden;
+	}
+	&__item {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 80px;
+		height: 80px;
+		transform: translate(-50%, -50%) rotate(45deg) translate3d(0,0,0);
+		animation: loader 1.2s infinite ease-in-out;
+		span {
+			position: absolute;
+			display: block;
+			width: 40px;
+			height: 40px;
+			background-color: #ffffff;
+			border-radius: 4px;
+			box-shadow: 0 0 12px $color-black;
+			animation: loaderBlock 1.2s infinite ease-in-out both;
+			&:nth-child(1) {
+				top: 0;
+				left: 0;
+			}
+			&:nth-child(2) {
+				top: 0;
+				right: 0;
+				animation: loaderBlockInverse 1.2s infinite ease-in-out both;
+			}
+			&:nth-child(3) {
+				bottom: 0;
+				left: 0;
+				animation: loaderBlockInverse 1.2s infinite ease-in-out both;
+			}
+			&:nth-child(4) {
+				bottom: 0;
+				right: 0;
+			}
+		}
+	}
+}
+
+@keyframes loader {
+	0%, 10%, 100% {
+		width: 80px;
+		height: 80px;
+	}
+	65% {
+		width: 150px;
+		height: 150px;
+	}
+}
+@keyframes loaderBlock {
+	0%, 30% { 
+		transform: rotate(0);
+	}
+	55% {
+		background-color: #cccccc;
+	}
+	100% {
+		transform: rotate(90deg);
+
+	}
+}
+@keyframes loaderBlockInverse {
+	0%, 20% { 
+		transform: rotate(0);
+	}
+	55% {
+		background-color: #cccccc;
+	}
+	100% {
+		transform: rotate(-90deg);
+	}
+}
+
 html {
 	box-sizing: border-box;
 }
@@ -10,8 +99,11 @@ html {
 
 body {
   margin: 0;
-  font-family: "Arial", sans-serif;
-  background-color: $color-white;
+  font-family: "Poppins", sans-serif;
+  background-color: $color-background;
+	&.lock {
+		overflow: hidden;
+	}
 }
 
 h1, h2, h3, h4, h5, h6, p, ul {
@@ -42,8 +134,141 @@ button {
 }
 
 .container {
-	max-width: 1440px;
+	max-width: 1752px;
 	width: 100%;
 	margin: 0 auto;
 	padding: 0 16px;
+}
+
+.site-description {
+	color: $color-white;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1.5;
+}
+
+.site-title {
+	color: $color-white;
+	font-size: 32px;
+	font-weight: 700;
+	line-height: 1.25;
+	text-transform: uppercase;
+	strong {
+		color: #6266DC;
+		font-size: 24px;
+	}
+}
+
+.section-title {
+	color: $color-white;
+	font-size: 32px;
+	font-weight: 700;
+	line-height: 1.25;
+	text-shadow: 2px 0px 5px rgba(0, 0, 0, 0.25);
+}
+
+.btn-primary {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: fit-content;
+	padding: 15px 38px;
+	text-decoration: none;
+	border: 1px solid $color-white;
+	border-radius: 40px;
+	transition: $transition-normal;
+	&__text {
+		color: $color-white;
+		font-size: 20px;
+		font-weight: 600;
+		line-height: 1;
+		transition: $transition-normal;
+	}
+	&__icon {
+		color: $color-white;
+		font-size: 24px;
+		margin-left: 8px;
+		transition: $transition-normal;
+	}
+	&:hover {
+		background-color: $color-white;
+		.btn-primary {
+			&__text {
+				color: $color-background;
+			}
+			&__icon {
+				color: $color-background;
+				transform: translateX(12px);
+			}
+		}
+	}
+}
+
+.list-primary {
+  list-style: disc;
+  padding-left: 16px;
+}
+
+.item-primary {
+	display: list-item;
+	color: $color-white;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.25;
+	&::marker {
+		color: $color-white;
+		font-size: 14px;
+	}
+	&:not(:last-child) {
+		margin-bottom: 16px;
+	}
+}
+
+// Media 768px =====>
+@media screen and (min-width: 768px) {
+	.site-title {
+		strong {
+			display: block;
+			margin-bottom: 8px;
+			font-weight: 600;
+		}
+	}
+}
+
+// Media 992px =====>
+@media screen and (min-width: 992px) {
+	.site-title {
+		font-size: 48px;
+		font-weight: 600;
+		strong {
+			font-size: 32px;
+		}
+	}
+	.section-title {
+		font-size: 48px;
+	}
+	.site-description {
+		font-size: 24px;
+	}
+	.btn-primary {
+		border: none;
+		padding: 4px 0;
+		&__text {
+			font-size: 24px;
+		}
+		&__icon {
+			margin-left: 12px;
+		}
+		&:hover {
+			background: transparent;
+			.btn-primary {
+				&__text {
+					color: $color-white;
+				}
+				&__icon {
+					color: $color-white;
+				}
+			}
+		}
+	}
 }
